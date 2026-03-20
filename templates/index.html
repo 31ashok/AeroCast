@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A beautiful and modern weather application displaying interactive map and current conditions.">
+    <title>AeroCast - Interactive Map</title>
+    <!-- Modern Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Floating UI -->
+    <div class="floating-ui-container">
+        <!-- Top Navigation -->
+        <header class="floating-header class-panel glass-panel">
+            <div class="logo">
+                <i class="fa-solid fa-cloud-sun-rain"></i>
+                <h1>AeroCast</h1>
+            </div>
+            <div class="search-container">
+                <form id="search-form">
+                    <button type="button" id="location-btn" aria-label="Use Current Location" title="Use current location">
+                        <i class="fa-solid fa-location-crosshairs"></i>
+                    </button>
+                    <input type="text" id="city-input" placeholder="Search for a city..." required autocomplete="off">
+                    <button type="submit" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+        </header>
+
+        <!-- Information Panel -->
+        <div id="info-panel" class="info-panel glass-panel hidden">
+            <button id="close-panel" aria-label="Close" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+            </div>
+            <div id="error-message" class="hidden"></div>
+            <div id="weather-details" class="hidden">
+                <h2 id="city-name">--</h2>
+                <div class="temp-large"><span id="temp">--</span>°C</div>
+                <div class="condition">
+                    <img id="weather-icon" src="" alt="Icon">
+                    <span id="description">--</span>
+                </div>
+                <div class="metrics">
+                    <div class="metric"><i class="fa-solid fa-wind"></i> <span id="wind-speed">--</span> m/s</div>
+                    <div class="metric"><i class="fa-solid fa-droplet"></i> <span id="humidity">--</span>%</div>
+                    <div class="metric" title="Feels Like"><i class="fa-solid fa-temperature-half"></i> <span id="feels-like">--</span>°C</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Layer Controls -->
+    <div class="layer-controls">
+        <button class="layer-btn active" data-layer="none" title="No Map Overlay">
+            <i class="fa-solid fa-map"></i><span>Base</span>
+        </button>
+        <button class="layer-btn" data-layer="clouds_new" title="Clouds Layer">
+            <i class="fa-solid fa-cloud"></i><span>Clouds</span>
+        </button>
+        <button class="layer-btn" data-layer="precipitation_new" title="Precipitation Layer">
+            <i class="fa-solid fa-cloud-showers-heavy"></i><span>Rain</span>
+        </button>
+        <button class="layer-btn" data-layer="temp_new" title="Temperature Layer">
+            <i class="fa-solid fa-temperature-three-quarters"></i><span>Temp</span>
+        </button>
+        <button class="layer-btn" data-layer="wind_new" title="Wind Speed Layer">
+            <i class="fa-solid fa-wind"></i><span>Wind</span>
+        </button>
+        <button class="layer-btn" data-layer="pressure_new" title="Pressure Layer">
+            <i class="fa-solid fa-arrows-down-to-line"></i><span>Pressure</span>
+        </button>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Application Logic -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
